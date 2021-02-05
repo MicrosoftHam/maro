@@ -5,11 +5,15 @@ from maro.simulator import Env
 from maro.simulator.scenarios.vm_scheduling.common import Action
 from maro.simulator.scenarios.vm_scheduling import AllocateAction, DecisionPayload, PostponeAction
 
-from algorithm import VMSchedulingAgent
+from algorithm import Algorithm
 
 
-class BinPacking(VMSchedulingAgent):
-    def __init__(self, pm_num, pm_cpu_core_num):
+class BinPacking(Algorithm):
+    def __init__(
+        self, 
+        pm_num: int, 
+        pm_cpu_core_num: int
+    ):
         super().__init__()
         self._pm_num: int = pm_num
         self._pm_cpu_core_num: int = pm_cpu_core_num
@@ -22,8 +26,8 @@ class BinPacking(VMSchedulingAgent):
         self._init_bin()
 
         total_pm_info = env.snapshot_list["pms"][
-                            env.frame_index::["cpu_cores_capacity", "cpu_cores_allocated"]
-                        ].reshape(-1, 2)
+            env.frame_index::["cpu_cores_capacity", "cpu_cores_allocated"]
+        ].reshape(-1, 2)
         cpu_cores_remaining = total_pm_info[:, 0] - total_pm_info[:, 1]
 
         for i, cpu_core in enumerate(cpu_cores_remaining):

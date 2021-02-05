@@ -26,9 +26,11 @@ MAX_UTILIZATION_RATE: 1
 PM:
   - PM_type: 0 # PM type is currently "int" only.
     amount: 100
-    CPU: 32
+    # CPU: 32
+    CPU: 16
   # GPU: 0
-    memory: 128
+    # memory: 128
+    memory: 112
     power_curve:
       calibration_parameter: 1.4
       busy_power: 10
